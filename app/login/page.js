@@ -54,7 +54,7 @@ const LoginPage = () => {
         const user = jwtDecode(token);
         setWebUser(user);
         router.replace('/');
-        showSnackbar('User logged in successfully.', 'success');
+        showSnackbar('Logged in successfully.', 'success');
       } catch (error) {
         console.error(error);
         showSnackbar(error?.response?.data?.message, 'error');
@@ -77,7 +77,7 @@ const LoginPage = () => {
           <h5 className="mb-1 dark:text-formHeading tracking-normal leading-8 text-grayHeading text-2xl font-medium">
             Let's get things done together!
           </h5>
-          <p className="text-formTitle text-base font-normal tracking-[0.0094rem] leading-[1.3125rem]">
+          <p className="text-formTitle  dark:text-gray-500 text-base font-normal tracking-[0.0094rem] leading-[1.3125rem]">
             Task Manager is your go-to app for managing tasks, staying
             organized, and maximizing productivity—all in one place!
           </p>

@@ -97,11 +97,11 @@ const TaskCard = ({
   };
 
   return (
-    <div className="bg-white dark:bg-primaryBlue shadow-lg p-4 rounded-lg w-full max-w-sm">
+    <div className="flex flex-col bg-white dark:bg-primaryBlue shadow-lg p-4 rounded-lg w-full max-w-sm">
       <div className="flex justify-between items-center mb-2">
         <h3 className="font-semibold text-formButton text-xl">{taskTitle}</h3>
       </div>
-      <p className="mb-2 text-ellipsis text-gray-500 overflow-hidden">
+      <p className="flex-1 mb-2 text-ellipsis text-gray-500 overflow-hidden">
         {taskDescription}
       </p>
       <div className="flex justify-between items-center mt-5">
