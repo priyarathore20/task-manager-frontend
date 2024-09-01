@@ -1,0 +1,40 @@
+{
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "next",
+    "next/core-web-vitals",
+    "prettier"
+  ],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 13,
+    "sourceType": "module"
+  },
+  "plugins": ["react"],
+  "rules": {
+    "indent": ["error", 2],
+    // "linebreak-style": ["error", "unix"],
+    "quotes": ["error", "single"],
+    "semi": ["error", "always"],
+    "react/react-in-jsx-scope": "off",
+    "react/display-name": "off",
+    "@next/next/no-img-element": "off",
+    "react-hooks/exhaustive-deps": "off",
+    "@next/next/next-script-for-ga": "off",
+    "@next/next/no-before-interactive-script-outside-document": "off"
+  },
+  "ignorePatterns": []
+}

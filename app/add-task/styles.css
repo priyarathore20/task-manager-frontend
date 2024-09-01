@@ -1,0 +1,3 @@
+.input {
+  @apply dark:text-formHeading text-grayHeading outline-none dark:focus:border-formHeading dark:bg-primaryBlue bg-white border border-formTitle py-2 px-1;
+}
