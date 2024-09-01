@@ -1,13 +1,5 @@
-import { CgProfile } from 'react-icons/cg';
 import { FaRegEye } from 'react-icons/fa';
 import { IoAddCircleOutline } from 'react-icons/io5';
-import BirdImg from './public/bird.jpg';
-import CamelImg from './public/camel.jpg';
-import CatImg from './public/cat.jpg';
-import CowImg from './public/cow.jpg';
-import DogImg from './public/dog.webp';
-import HorseImg from './public/horse.jpg';
-import SnakeImg from './public/snake.png';
 
 export const sidebarLinks = [
   {
