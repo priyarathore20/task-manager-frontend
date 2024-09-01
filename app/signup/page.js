@@ -3,6 +3,7 @@ import Button from '@/components/Button';
 import Input from '@/components/Input';
 import Loader from '@/components/Loader';
 import Logo from '@/components/Logo';
+import { useSnackbar } from '@/context/SnackbarProvider';
 import { AuthContext } from '@/context/UserContext';
 import withAuth from '@/hoc/WithAuth';
 import instance from '@/utils/axios';
@@ -29,6 +30,7 @@ const RegisterPage = () => {
   });
   const router = useRouter();
   const { setWebUser } = useContext(AuthContext);
+  const snackbar = useSnackbar();
 
   const isValidated = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -66,7 +68,6 @@ const RegisterPage = () => {
   const registerUser = async (e) => {
     e.preventDefault();
     if (isValidated()) {
-
       const data = {
         name,
         email,
@@ -82,9 +83,11 @@ const RegisterPage = () => {
         localStorage.setItem('token', token);
         const user = jwtDecode(token);
         setWebUser(user);
+        snackbar('User created successfully', 'success');
         router.replace('/');
       } catch (error) {
         console.error(error);
+        snackbar('Error creating user', 'error');
         setIsLoading(false);
       }
     }

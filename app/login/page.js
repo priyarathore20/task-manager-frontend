@@ -53,7 +53,7 @@ const LoginPage = () => {
         showSnackbar('User logged in successfully.', 'success');
       } catch (error) {
         console.error(error);
-        showSnackbar(error?.response?.data?.message, 'success');
+        showSnackbar(error?.response?.data?.message, 'error');
         setIsLoading(false);
       }
       setErrors(false);
@@ -74,8 +74,8 @@ const LoginPage = () => {
             Let's get things done together!
           </h5>
           <p className="text-formTitle text-base font-normal tracking-[0.0094rem] leading-[1.3125rem]">
-            Task Manager is your go-to app for managing tasks, staying organized,
-            and maximizing productivity—all in one place!
+            Task Manager is your go-to app for managing tasks, staying
+            organized, and maximizing productivity—all in one place!
           </p>
         </div>
         <div className="w-full flex flex-col items-start">
