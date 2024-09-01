@@ -10,6 +10,7 @@ const Input = ({
   disabled,
   fullWidth,
   error,
+  subLabel,
   maxLength,
   textarea,
   ...props
@@ -23,6 +24,7 @@ const Input = ({
       {label && (
         <label className="text-grayHeading text-lg dark:text-white/75">
           {label}
+          {subLabel && <span className="ml-2.5 text-xs">{subLabel}</span>}
         </label>
       )}
       {!textarea ? (

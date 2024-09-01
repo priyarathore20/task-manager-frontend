@@ -37,6 +37,10 @@ const LoginPage = () => {
 
   const loginUser = async (e) => {
     e.preventDefault();
+    setErrors({
+      email: false,
+      password: false,
+    });
     if (isValidated()) {
       const data = {
         email,

@@ -37,20 +37,30 @@ const TaskCard = ({
   const editTask = async (e) => {
     e.preventDefault();
     const data = { title, description, status, dueDate };
+    setError({
+      title: false,
+      status: false,
+      description: false,
+      dueDate: false,
+    });
     if (isValidated(title, description, status, dueDate, setError)) {
       try {
         setIsLoading(true);
-        await instance.put(`/tasks/edit-task/${id}`, data, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
-        });
+        await instance.put(
+          `/tasks/edit-task/${id}`,
+          { ...data, title: title?.trim(), description: description?.trim() },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+          }
+        );
         setTasks((tasks) => {
           const newArr = [];
           tasks.forEach((task) => {
             if (task._id === id) {
-              task.title = title;
-              task.description = description;
+              task.title = title?.trim();
+              task.description = description?.trim();
               task.status = status;
               task.dueDate = dueDate;
             }
@@ -146,6 +156,7 @@ const TaskCard = ({
                 <Input
                   textarea={true}
                   disabled={isLoading}
+                  subLabel={`(${description.length} / 300 words)`}
                   error={error?.description}
                   label={'Description*'}
                   value={description}
@@ -202,6 +213,10 @@ const TaskCard = ({
                 onClick={(e) => {
                   e.preventDefault();
                   setEditDialogOpen(false);
+                  setTitle(taskTitle);
+                  setDescription(taskDescription);
+                  setStatus(taskStatus);
+                  setDueDate(taskDueDate);
                 }}
               />
             </div>

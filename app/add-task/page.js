@@ -11,6 +11,7 @@ import React, { useState } from 'react';
 import './styles.css';
 import { useSnackbar } from '@/context/SnackbarProvider';
 import { STATUS } from '@/utils/constants';
+import { isValidated } from '@/utils/helper';
 
 const AddTask = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -26,27 +27,6 @@ const AddTask = () => {
   const [dueDate, setDueDate] = useState('');
   const showSnackbar = useSnackbar();
 
-  const isValidated = () => {
-    let validation = true;
-    if (title.length === 0) {
-      validation = false;
-      setErrors((prev) => ({ ...prev, title: true }));
-    }
-    if (description.length === 0) {
-      validation = false;
-      setErrors((prev) => ({ ...prev, description: true }));
-    }
-    if (status.length === 0) {
-      validation = false;
-      setErrors((prev) => ({ ...prev, status: true }));
-    }
-    if (dueDate.length === 0) {
-      validation = false;
-      setErrors((prev) => ({ ...prev, dueDate: true }));
-    }
-    return validation;
-  };
-
   const resetForm = () => {
     setTitle('');
     setDescription('');
@@ -56,7 +36,13 @@ const AddTask = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (isValidated()) {
+    setErrors({
+      title: false,
+      status: false,
+      description: false,
+      dueDate: false,
+    });
+    if (isValidated(title, description, status, dueDate, setErrors)) {
       const data = {
         title,
         description,
@@ -65,11 +51,15 @@ const AddTask = () => {
       };
       try {
         setIsLoading(true);
-        await instance.post('/tasks/add-task', data, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
-        });
+        await instance.post(
+          '/tasks/add-task',
+          { ...data, title: title?.trim(), description: description?.trim() },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+          }
+        );
         showSnackbar('Task added successfully');
         setIsLoading(false);
         resetForm();
@@ -114,7 +104,8 @@ const AddTask = () => {
 
               <Input
                 textarea={true}
-                label={'Description*'}
+                label={`Description*`}
+                subLabel={`(${description.length} / 300 words)`}
                 disabled={isLoading}
                 error={errors?.description}
                 value={description}

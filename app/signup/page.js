@@ -65,8 +65,13 @@ const RegisterPage = () => {
 
   const registerUser = async (e) => {
     e.preventDefault();
-    // console.log('inside register function');
-
+    setErrors({
+      name: false,
+      email: false,
+      phoneNumber: false,
+      password: false,
+      gender: false,
+    });
     if (isValidated()) {
       const data = {
         name,
