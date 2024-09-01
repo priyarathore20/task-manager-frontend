@@ -106,6 +106,7 @@ const AddTask = () => {
                 label={'Title*'}
                 type="text"
                 fullWidth
+                disabled={isLoading}
                 className="input"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
@@ -114,6 +115,7 @@ const AddTask = () => {
               <Input
                 textarea={true}
                 label={'Description*'}
+                disabled={isLoading}
                 error={errors?.description}
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
@@ -123,6 +125,7 @@ const AddTask = () => {
                 error={errors?.dueDate}
                 label={'Due date*'}
                 type="date"
+                disabled={isLoading}
                 className="input"
                 value={dueDate}
                 fullWidth
@@ -135,6 +138,7 @@ const AddTask = () => {
                 </label>
                 <select
                   value={status}
+                  disabled={isLoading}
                   onChange={(e) => {
                     setStatus(e.target.value);
                   }}

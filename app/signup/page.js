@@ -19,7 +19,7 @@ const RegisterPage = () => {
   const [email, setEmail] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
-  const [gender, setGender] = useState('');
+  const [gender, setGender] = useState('Male');
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState({
     name: false,
@@ -41,7 +41,6 @@ const RegisterPage = () => {
       validation = false;
       setErrors((prev) => ({ ...prev, name: true }));
     }
-
     if (phoneNumber.length === 0 || !phoneRegex?.test(phoneNumber)) {
       validation = false;
       setErrors((prev) => ({ ...prev, phoneNumber: true }));
@@ -54,7 +53,6 @@ const RegisterPage = () => {
 
     if (password.length === 0) {
       validation = false;
-      setErrors((prev) => ({ ...prev, password: true }));
     }
 
     if (email.length === 0 || !emailRegex?.test(email)) {
@@ -67,6 +65,8 @@ const RegisterPage = () => {
 
   const registerUser = async (e) => {
     e.preventDefault();
+    // console.log('inside register function');
+
     if (isValidated()) {
       const data = {
         name,
@@ -75,6 +75,7 @@ const RegisterPage = () => {
         password,
         gender,
       };
+      // console.log("inside is validated")
       try {
         setIsLoading(true);
         const res = await instance.post('/auth/signup', data);
@@ -119,29 +120,32 @@ const RegisterPage = () => {
             fullWidth
           />
           <div className="flex justify-between w-full gap-3">
-            <select
-              onChange={(e) => {
-                setGender(e.target.value);
-              }}
-              className="py-2 outline-none s:w-32 w-[52px] border border-cardSubTitle rounded-lg px-2"
-            >
-              {genderOptions.map((gender, i) => (
-                <option
-                  value={gender}
-                  key={i}
-                  className="text-gray-700 py-1 outline-none capitalize"
-                >
-                  {gender?.charAt(0).toUpperCase() + gender?.slice(1)}
-                </option>
-              ))}
-            </select>
+            <div>
+              <select
+                onChange={(e) => {
+                  setGender(e.target.value);
+                }}
+                className="py-2 outline-none s:w-32 w-[52px] border border-cardSubTitle rounded-lg px-2"
+              >
+                {genderOptions.map((gender, i) => (
+                  <option
+                    value={gender}
+                    key={i}
+                    className="text-gray-700 py-1 outline-none capitalize"
+                  >
+                    {gender?.charAt(0).toUpperCase() + gender?.slice(1)}
+                  </option>
+                ))}
+              </select>
+            </div>
             <Input
               placeholder={'Phone Number*'}
               onChange={(e) => setPhoneNumber(e.target.value)}
               value={phoneNumber}
+              error={errors?.phoneNumber}
               disabled={isLoading}
               maxLength={10}
-              type="number"
+              type="tel"
             />
           </div>
           <Input

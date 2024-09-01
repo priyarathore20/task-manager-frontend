@@ -9,6 +9,7 @@ import { useSnackbar } from '@/context/SnackbarProvider';
 import instance from '@/utils/axios';
 import { STATUS } from '@/utils/constants';
 import { isValidated } from '@/utils/helper';
+import Loader from './Loader';
 
 const TaskCard = ({
   id,
@@ -103,7 +104,7 @@ const TaskCard = ({
             'dark:bg-errorBg dark:text-white bg-rose-100 text-errorBg':
               taskStatus === 'todo',
 
-            'dark:bg-orange-600 dark:text-white bg-yellow-200 text-yellow-600':
+            'dark:bg-yellow-600 dark:text-white bg-yellow-200 text-yellow-600':
               taskStatus === 'inProgress',
           })}
         >
@@ -137,12 +138,14 @@ const TaskCard = ({
                   error={error?.title}
                   fullWidth
                   className="input"
+                  disabled={isLoading}
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                 />
 
                 <Input
                   textarea={true}
+                  disabled={isLoading}
                   error={error?.description}
                   label={'Description*'}
                   value={description}
@@ -153,6 +156,7 @@ const TaskCard = ({
                   label={'Due date*'}
                   error={error?.dueDate}
                   type="date"
+                  disabled={isLoading}
                   className="input"
                   value={dueDate}
                   fullWidth
@@ -165,6 +169,7 @@ const TaskCard = ({
                   </label>
                   <select
                     value={status}
+                    disabled={isLoading}
                     onChange={(e) => {
                       setStatus(e.target.value);
                     }}
@@ -184,9 +189,15 @@ const TaskCard = ({
               </div>
             </div>
             <div className="flex justify-end items-center gap-5">
-              <Button label={'Save'} size={'small'} onClick={editTask} />
+              <Button
+                label={isLoading ? <Loader size={'small'} /> : 'Save'}
+                disabled={isLoading}
+                size={'small'}
+                onClick={editTask}
+              />
               <Button
                 label={'Cancel'}
+                disabled={isLoading}
                 size={'small'}
                 onClick={(e) => {
                   e.preventDefault();
@@ -209,9 +220,15 @@ const TaskCard = ({
             </h2>
           </div>
           <div className="flex justify-end items-center gap-5">
-            <Button label={'Delete'} size={'small'} onClick={deleteTask} />
+            <Button
+              label={isLoading ? <Loader size={'small'} /> : 'Delete'}
+              disabled={isLoading}
+              size={'small'}
+              onClick={deleteTask}
+            />
             <Button
               label={'Cancel'}
+              disabled={isLoading}
               size={'small'}
               onClick={(e) => {
                 e.preventDefault();

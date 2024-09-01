@@ -55,7 +55,7 @@ export const SnackbarProvider = ({ children }) => {
 
       <div
         className={classNames(
-          'transition-transform bottom-8 text-white left-8 fixed flex justify-between gap-2 items-center shadow-md min-h-[48px] max-w-[50vw] p-4 rounded-lg min-w-[300px]  text-sm truncate whitespace-nowrap',
+          'transition-transform bottom-8 text-white left-8 fixed flex justify-between gap-2 items-center shadow-md min-h-[48px] max-w-[50vw] p-4 rounded-lg min-w-[300px] text-sm z-50',
           {
             ['bg-successBg ']: snackbar?.variant === 'success',
             ['bg-errorBg ']: snackbar?.variant === 'error',
